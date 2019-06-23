@@ -8,12 +8,67 @@
   <body>
     <header></header>
     <main>
-      <div class="wrapper" id="mainXXXXX"></div>
+      <div class="wrapper" id="main"></div>
     </main>
     <footer></footer>
     <script>
-      keys = {
-        0: {
+      
+    var hashA = init()
+    var keys = hashA['keys']
+    var hash = hashA['hash']
+
+    generateKeyboard(keys,hash)
+    
+    listenToUser(hash)
+    
+      
+      function getFromLocalStorage(name) {
+        return JSON.parse(localStorage.getItem(name) || "null");
+      }
+      function tag(tagName) {
+        return document.createElement(tagName);
+      }
+
+      function createSpan(textContent) {
+        var span = tag("span");
+        span.className = "text";
+        span.textContent = textContent;
+        return span;
+      }
+
+      function createbutton(id) {
+        var button = tag("button");
+        button.textContent = "编辑";
+        button.id = id;
+        button.onclick = function(xzkjcnxlkcjlk) {
+          var button2 = xzkjcnxlkcjlk["target"];
+          var img2 = button2.previousSibling;
+          var key = button2["id"];
+          var x = prompt("给我一个网址");
+          hash[key] = x;
+          img2.src = "http://" + x + "/favicon.ico";
+          img.onerror = function(xxx) {
+            xxx.target.src = "//i.loli.net/2017/11/10/5a05afbc5e183.png";
+          };
+          localStorage.setItem("zzz", JSON.stringify(hash));
+        };
+        return button;
+      }
+
+      function createImage(domain) {
+        var img = tag("img");
+        if (domain) {
+          img.src = "http://" + domain + "/favicon.ico";
+        } else {
+          img.src = "//i.loli.net/2017/11/10/5a05afbc5e183.png";
+        }
+        img.onerror = function(xxx) {
+          xxx.target.src = "//i.loli.net/2017/11/10/5a05afbc5e183.png";
+        };
+        return img;
+      }
+      function init(){
+      var keys = {0: {
           0: "q",
           1: "w",
           2: "e",
@@ -50,12 +105,12 @@
         },
         length: 3
       };
-      hash = {
-        q: "qq.com",
+      var hash = {
+        q: "jd.com",
         w: "weibo.com",
         e: "ele.me",
-        r: "renren.com",
-        t: "tianya.com",
+        r: "baidu.com",
+        t: "youku.com",
         y: "youtube.com",
         u: "uc.com",
         i: "iqiyi.com",
@@ -66,41 +121,49 @@
         z: "zhihu.com",
         m: "www.mcdonalds.com.cn"
       };
-      hashInlocalStorage = JSON.parse(localStorage.getItem(name) || 'null');
+      var hashInlocalStorage = getFromLocalStorage("zzz");
       if (hashInlocalStorage) {
         hash = hashInlocalStorage;
       }
-      index = 0;
-      while (index < keys["length"]) {
-        divXXXXX = document.createElement("div");
-        mainXXXXX.appendChild(divXXXXX);
-        row = keys[index];
-        index2 = 0;
-        while (index2 < row["length"]) {
-          kbdXXXXX = document.createElement("kbd");
-          kbdXXXXX.textContent = row[index2];
-          buttonX = document.createElement("button");
-          buttonX.textContent = "编辑";
-          buttonX.in = row[index2];
-          buttonX.onclick = function(xzkjcnxlkcjlk) {
-            key = xzkjcnxlkcjlk["target"]["id"];
-            x = prompt("给我一个网址");
-            hash[key] = x;
-            localStorage.setItem("zzz", JSON.stringify(hash));
-            console.log(hash);
-          };
-          kbdXXXXX.appendChild(buttonX);
-          divXXXXX.appendChild(kbdXXXXX);
-          index2 = index2 + 1;
-        }
-        index = index + 1;
+      return{
+        "keys":keys,
+        "hash":hash
       }
+    }
+    function generateKeyboard(keys,hash){
+      for (var index = 0; index < keys["length"]; index = index + 1) {
+        var div = tag("div");
+        div.className = "row";
+
+        main.appendChild(div);
+
+        var row = keys[index];
+        for (var index2 = 0; index2 < row["length"]; index2 = index2 + 1) {
+          var span = createSpan(row[index2]);
+
+          var button = createbutton(row[index2]);
+
+          var img = createImage(hash[row[index2]]);
+
+          var kbd = tag("kbd");
+          kbd.className = "key";
+
+          kbd.appendChild(span);
+          kbd.appendChild(img);
+          kbd.appendChild(button);
+
+          div.appendChild(kbd);
+        }
+      }
+    }
+    function listenToUser(hash){
       document.onkeypress = function(xzkjcnxlkcjlk) {
-        key = xzkjcnxlkcflk["key"];
-        website = hash[key];
+        var key = xzkjcnxlkcflk["key"];
+        var website = hash[key];
         // location.href = 'http://'+ website
         window.open("http://" + website, "_blank");
       };
+    }
     </script>
   </body>
 </html>
