@@ -106,13 +106,13 @@
         'length': 3
       };
       var hash = {
-        q: "qq.com",
+        q: "www.qq.com",
         w: "weibo.com",
         e: "ele.me",
         r: "baidu.com",
         t: "youku.com",
-        y: "youtube.com",
-        u: "uc.com",
+        y: "youku.com",
+        u: "www.uc.cn",
         i: "iqiyi.com",
         o: "opera.com",
         p: undefined,
@@ -160,7 +160,6 @@
       document.onkeypress = function(xzkjcnxlkcjlk) {
         var key = xzkjcnxlkcjlk['key'];
         var website = hash[key];
-        // location.href = 'http://'+ website
         window.open("http://" + website, "_blank");
       };
     }
